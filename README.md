@@ -9,6 +9,10 @@
 <h3 align="center">NestJS Loki Logger</h3>
 
 <div align="center">
+<a href="https://www.npmjs.com/package/@djeka07/nestjs-loki-logging"><img src="https://img.shields.io/npm/v/@djeka07/nestjs-loki-logging.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/@djeka07/nestjs-loki-logging"><img src="https://img.shields.io/npm/l/@djeka07/nestjs-loki-logging.svg" alt="Package License" /></a>
+
+
   <a href="https://nestjs.com" target="_blank">
     <img src="https://img.shields.io/badge/built%20with-NestJs-red.svg" alt="Built with NestJS">
   </a>
@@ -43,7 +47,7 @@ import { LokiLoggerModule } from '@djeka07/nestjs-loki-logger';
   providers: [],
   exports: [],
 })
-export class YourModule {}
+export class AModule {}
 ```
 
 #### Importing module Async
@@ -69,10 +73,10 @@ import { LokiLoggerModule } from '@djeka07/nestjs-loki-logger';
   providers: [],
   exports: [],
 })
-export class YourModule {}
+export class AModule {}
 ```
 
-#### add logger to nest logging
+#### Add logger to nest logging
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -90,9 +94,7 @@ async function bootstrap() {
 bootstrap();
 ```
 
-#### Calling Verify Method
-
-To check if an email is real or not.
+#### Use the log service
 
 ```typescript
 import { LokiLoggerService } from '@djeka07/nestjs-loki-logger';
@@ -106,8 +108,7 @@ export class AService {
 ```
 
 ## Author
-
-**André Ekbom [Site](https://github.com/djeka07)**
+**André Ekbom [Github](https://github.com/djeka07)**
 
 ## License
 

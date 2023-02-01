@@ -1,7 +1,7 @@
 {
   "name": "@djeka07/nestjs-loki-logging",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.2",
+  "description": "A logger that logs to Grafana Loki.",
   "main": "./dist/index.js",
   "scripts": {
     "dev": "tsc -w",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djeka07/nestjs-grafana-logging.git"
+    "url": "git+https://github.com/djeka07/nestjs-loki-logger.git"
   },
   "files": [
     "dist/**/*",
@@ -26,12 +26,12 @@
   "author": "Andre Ekbom",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/djeka07/nestjs-grafana-logging/issues"
+    "url": "https://github.com/djeka07/nestjs-loki-logger/issues"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/djeka07/nestjs-grafana-logging#readme",
+  "homepage": "https://github.com/djeka07/nestjs-loki-logger#readme",
   "peerDependencies": {
     "@nestjs/common": "^8.4.7 || ^9.3.1"
   },
