@@ -1,0 +1,60 @@
+{
+  "name": "@djeka07/nestjs-loki-logging",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "rimraf ./dist && tsc -p tsconfig.build.json",
+    "prepare": "yarn build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djeka07/nestjs-grafana-logging.git"
+  },
+  "files": [
+    "dist/**/*",
+    "src/**/*",
+    "*.md"
+  ],
+  "keywords": [
+    "grafana",
+    "loki",
+    "logging"
+  ],
+  "author": "Andre Ekbom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djeka07/nestjs-grafana-logging/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/djeka07/nestjs-grafana-logging#readme",
+  "peerDependencies": {
+    "@nestjs/common": "^8.4.7 || ^9.3.1"
+  },
+  "dependencies": {
+    "@nestjs/common": "^9.3.1",
+    "winston": "^3.8.2",
+    "winston-loki": "^6.0.6"
+  },
+  "devDependencies": {
+    "@nestjs/core": "^9.3.1",
+    "@nestjs/testing": "^9.3.1",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "5.48.2",
+    "@typescript-eslint/parser": "5.48.2",
+    "eslint": "8.32.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "jest": "^29.4.1",
+    "prettier": "2.8.3",
+    "rimraf": "^4.1.2",
+    "rxjs": "^7.8.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.9.5"
+  }
+}
