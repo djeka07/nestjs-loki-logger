@@ -1,8 +1,9 @@
-import { Module, Provider } from '@nestjs/common';
+import { Global, Module, Provider } from '@nestjs/common';
 import { LOKI_CONFIGURATION } from './loki-logger.constants';
 import { Options, OptionsAsync } from './loki-logger.interface';
 import { LokiLoggerService } from './loki-logger.service';
 
+@Global()
 @Module({})
 export class LokiLoggerModule {
   public static forRoot(config: Options) {
