@@ -1,6 +1,6 @@
 {
   "name": "@djeka07/nestjs-loki-logger",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "A logger that logs to Grafana Loki.",
   "main": "./dist/index.js",
   "scripts": {
@@ -45,6 +45,7 @@
     "@nestjs/testing": "^9.3.1",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",
+    "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "5.50.0",
     "@typescript-eslint/parser": "5.50.0",
     "eslint": "8.33.0",

@@ -9,8 +9,8 @@
 <h3 align="center">NestJS Loki Logger</h3>
 
 <div align="center">
-<a href="https://www.npmjs.com/package/@djeka07/nestjs-loki-logging"><img src="https://img.shields.io/npm/v/@djeka07/nestjs-loki-logging.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/package/@djeka07/nestjs-loki-logging"><img src="https://img.shields.io/npm/l/@djeka07/nestjs-loki-logging.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/package/@djeka07//nestjs-loki-logger"><img src="https://img.shields.io/npm/v/@djeka07/nestjs-loki-logger.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/@djeka07/nestjs-loki-logger"><img src="https://img.shields.io/npm/l/@djeka07/nestjs-loki-logger.svg" alt="Package License" /></a>
 
 
   <a href="https://nestjs.com" target="_blank">
@@ -76,7 +76,7 @@ import { LokiLoggerModule } from '@djeka07/nestjs-loki-logger';
 export class AModule {}
 ```
 
-#### Add logger to nest logging
+#### Use logger for nest logging
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -92,6 +92,31 @@ async function bootstrap() {
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();
+```
+
+#### Use request logging interceptor
+```typescript
+import { LokiLoggerModule, LokiRequestLoggingInterceptor } from '@djeka07/nestjs-loki-logger';
+@Module({
+  imports: [
+    LokiLoggerModule.forAsyncRoot({
+      useFactory: async () => {
+        return {
+          app: 'app-name',
+          host: 'host',
+          userId: 'user id',
+          password: 'password',
+          environment: 'development' | 'production', // Optional, defaults to production
+          logDev: false, // Optional, default to false
+          minLogLevel: LogLevel.verbose, // Optional, defaults to LogLevel.verbose
+        };
+      },
+    }),
+  ],
+  providers: [{ provide: APP_INTERCEPTOR, useClass: LokiRequestLoggingInterceptor }],
+  exports: [],
+})
+export class AModule {}
 ```
 
 #### Use the log service

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Inject,
   Injectable,
@@ -13,13 +14,16 @@ import { LogLevel } from './loki-logger.enum';
 
 @Injectable()
 export class LokiLoggerService implements LglService {
-  logger: Logger;
+  private logger: Logger;
   constructor(@Inject(LOKI_CONFIGURATION) private readonly config: Options) {
     const mergedConfig = mergeOptions(config);
+    const logFormat = format.printf(
+      (info) => `${info.timestamp} ${info.level}: ${info.message}`,
+    );
 
     const transportArray: TransportStream[] = [
       new transports.Console({
-        format: format.combine(format.simple(), format.colorize()),
+        format: format.combine(format.colorize(), logFormat),
       }),
     ];
 
@@ -27,45 +31,67 @@ export class LokiLoggerService implements LglService {
       transportArray.push(
         new LokiTransport({
           host: mergedConfig.host,
+          level: LogLevel[mergedConfig.logLevel],
           labels: { app: mergedConfig.app },
           json: true,
           basicAuth: `${mergedConfig.userId}:${mergedConfig.password}`,
-          format: format.json(),
+          format: format.combine(format.prettyPrint(), format.json()),
           replaceTimestamp: true,
           onConnectionError: (err) => console.error(err),
         }),
       );
     }
 
-    this.logger = createLogger({ transports: transportArray });
+    this.logger = createLogger({
+      format: format.combine(
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.metadata({
+          fillExcept: ['message', 'level', 'timestamp', 'label'],
+        }),
+      ),
+      transports: transportArray,
+    });
   }
+
   log(message: any, ...optionalParams: any[]) {
-    if (this.config.logLevel >= LogLevel.log) {
-      this.logger.log('log', message, optionalParams);
-    }
+    this.call(LogLevel.info, message, optionalParams);
   }
 
-  error(message: string, ...optionalParams: any[]) {
-    if (this.config.logLevel >= LogLevel.error) {
-      this.logger.error(message, optionalParams);
-    }
+  info(message: any, ...optionalParams: any[]) {
+    this.call(LogLevel.info, message, optionalParams);
   }
 
-  warn(message: string, ...optionalParams: any[]) {
-    if (this.config.logLevel >= LogLevel.warn) {
-      this.logger.warn(message, optionalParams);
-    }
+  error(message: any, ...optionalParams: any[]) {
+    this.call(LogLevel.error, message, optionalParams);
   }
 
-  debug?(message: string, ...optionalParams: any[]) {
-    if (this.config.logLevel >= LogLevel.debug) {
-      this.logger.debug(message, optionalParams);
-    }
+  warn(message: any, ...optionalParams: any[]) {
+    this.call(LogLevel.warn, message, optionalParams);
   }
 
-  verbose?(message: string, ...optionalParams: any[]) {
-    if (this.config.logLevel >= LogLevel.verbose) {
-      this.logger.info(message, optionalParams);
+  debug(message: any, ...optionalParams: any[]) {
+    this.call(LogLevel.debug, message, optionalParams);
+  }
+
+  verbose(message: any, ...optionalParams: any[]) {
+    this.call(LogLevel.verbose, message, optionalParams);
+  }
+
+  private call(level: LogLevel, message: any, ...optionalParams: any[]) {
+    const objArg: Record<string, any> = {};
+
+    if (typeof message === 'object') {
+      if (message instanceof Error) {
+        objArg.err = message;
+      } else {
+        Object.assign(objArg, message);
+      }
+      this.logger.log(LogLevel[level], message?.message || '', [
+        objArg,
+        ...(optionalParams || []),
+      ]);
+    } else {
+      this.logger.log(LogLevel[level], message, ...(optionalParams || []));
     }
   }
 }
