@@ -22,16 +22,11 @@ export class LokiRequestLoggingInterceptor implements NestInterceptor {
 
         const end = new Date().getTime();
         const elapsedMs = end - start;
-        const currentUrl = `${req.protocol}://${req.get('host')}${
-          req.originalUrl
-        }`;
 
         this.loggerService.info(
-          `Url: '${currentUrl}', Original url: '${
-            req.originalUrl
-          }', Elapsed '${elapsedMs}ms', Status code: '${
-            res.statusCode
-          }', Request id: '${req.get('x-request-id')}'`,
+          `${req.method} ${req.originalUrl} ${elapsedMs}ms ${res.statusCode} ${
+            req.get('x-request-id') || '-'
+          }`,
         );
       }),
     );

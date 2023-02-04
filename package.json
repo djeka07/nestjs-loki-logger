@@ -1,6 +1,6 @@
 {
   "name": "@djeka07/nestjs-loki-logger",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A logger that logs to Grafana Loki.",
   "main": "./dist/index.js",
   "scripts": {
