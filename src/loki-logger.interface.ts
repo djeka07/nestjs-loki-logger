@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ModuleMetadata } from '@nestjs/common/interfaces';
 import { LogLevel } from './loki-logger.enum';
 
