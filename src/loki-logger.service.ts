@@ -11,15 +11,15 @@ import { LOKI_CONFIGURATION } from './loki-logger.constants';
 import { Options } from './loki-logger.interface';
 import mergeOptions from './merge-options';
 import { LogLevel } from './loki-logger.enum';
+import createLogFormat from './create-log-format';
+import onConnectionError from './on-connection-error';
 
 @Injectable()
 export class LokiLoggerService implements LglService {
   private logger: Logger;
   constructor(@Inject(LOKI_CONFIGURATION) private readonly config: Options) {
     const mergedConfig = mergeOptions(config);
-    const logFormat = format.printf(
-      (info) => `${info.timestamp} ${info.level}: ${info.message}`,
-    );
+    const logFormat = format.printf(createLogFormat);
 
     const transportArray: TransportStream[] = [
       new transports.Console({
@@ -37,7 +37,7 @@ export class LokiLoggerService implements LglService {
           basicAuth: `${mergedConfig.userId}:${mergedConfig.password}`,
           format: format.combine(format.prettyPrint(), format.json()),
           replaceTimestamp: true,
-          onConnectionError: (err) => console.error(err),
+          onConnectionError,
         }),
       );
     }
