@@ -20,10 +20,8 @@ export class LokiRequestLoggingInterceptor implements NestInterceptor {
       tap(() => {
         const req = context.switchToHttp().getRequest();
         const res = context.switchToHttp().getResponse();
-        console.log('dansas');
         const end = new Date().getTime();
         const elapsedMs = end - start;
-        console.log(this.loggerService.info, 'hejsan', elapsedMs);
         this.loggerService.info(
           `${req.method} ${req.originalUrl} ${elapsedMs}ms ${res.statusCode} ${
             req.get('x-request-id') || '-'
