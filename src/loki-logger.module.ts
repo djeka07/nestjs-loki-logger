@@ -17,7 +17,7 @@ export class LokiLoggerModule {
     };
   }
 
-  public static forAsyncRoot(config: OptionsAsync) {
+  public static forRootAsync(config: OptionsAsync) {
     return {
       module: LokiLoggerModule,
       imports: config.imports || [],

@@ -57,7 +57,7 @@ export class AModule {}
 import { LokiLoggerModule } from '@djeka07/nestjs-loki-logger';
 @Module({
   imports: [
-    LokiLoggerModule.forAsyncRoot({
+    LokiLoggerModule.forRootAsync({
       useFactory: async () => {
         return {
           app: 'app-name',
@@ -100,7 +100,7 @@ bootstrap();
 import { LokiLoggerModule, LokiRequestLoggingInterceptor } from '@djeka07/nestjs-loki-logger';
 @Module({
   imports: [
-    LokiLoggerModule.forAsyncRoot({
+    LokiLoggerModule.forRootAsync({
       useFactory: async () => {
         return {
           app: 'app-name',

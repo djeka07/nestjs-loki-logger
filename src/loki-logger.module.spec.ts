@@ -34,7 +34,7 @@ describe('GIVEN LokiLoggerModule', () => {
     };
 
     const module = await Test.createTestingModule({
-      imports: [LokiLoggerModule.forAsyncRoot({ useFactory: () => options })],
+      imports: [LokiLoggerModule.forRootAsync({ useFactory: () => options })],
     }).compile();
 
     const config = module.get(LOKI_CONFIGURATION);
