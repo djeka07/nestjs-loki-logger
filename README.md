@@ -114,7 +114,7 @@ import { LokiLoggerModule, LokiRequestLoggingInterceptor } from '@djeka07/nestjs
       },
     }),
   ],
-  providers: [{ provide: APP_INTERCEPTOR, useClass: LokiRequestLoggingInterceptor }],
+  providers: [LokiRequestLoggerInterceptorProvider],
   exports: [],
 })
 export class AModule {}
